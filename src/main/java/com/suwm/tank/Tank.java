@@ -12,10 +12,13 @@ public class Tank {
 
     private boolean moving = false;
 
-    public Tank(int x, int y, Direct direct) {
+    private TankFrame tankFrame;
+
+    public Tank(int x, int y, Direct direct, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.direct = direct;
+        this.tankFrame = tankFrame;
     }
 
     public int getX() {
@@ -79,5 +82,11 @@ public class Tank {
             default:
                 break;
         }
+    }
+
+    public void fire() {
+//        tankFrame.bullet = new Bullet();
+        tankFrame.bulletList.add(new Bullet(this.x + 10, this.y + 10, this.direct));
+
     }
 }

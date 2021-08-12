@@ -5,19 +5,21 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankFrame extends Frame {
 
     int x = 200;
     int y = 200;
 
-    final int SPEED = 5;
-
     Direct direct = Direct.DOWN;
 
-    Tank myTank = new Tank(x, y, direct);
+    Tank myTank = new Tank(x, y, direct, this);
 
     Bullet bullet = new Bullet(myTank.getX() / 2, myTank.getY() / 2, myTank.getDirect());
+
+    List<Bullet> bulletList = new ArrayList<>();
 
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
@@ -55,8 +57,14 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
+        Color color = g.getColor();
+        g.setColor(Color.white);
+        g.drawString("子弹：" + bulletList.size(), 10, 60);
+        g.setColor(color);
         myTank.paint(g);
-        bullet.paint(g);
+        for (int i = 0; i < bulletList.size(); i++) {
+            bulletList.get(i).paint(g);
+        }
 
 //        x += 10;
 //        y += 10;
@@ -90,6 +98,9 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     bD = true;
                     setMainTankDir();
+                    break;
+                case KeyEvent.VK_CONTROL:
+                    myTank.fire();
                     break;
                 default:
                     break;
