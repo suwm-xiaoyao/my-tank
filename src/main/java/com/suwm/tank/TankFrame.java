@@ -35,23 +35,8 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        g.fillRect(x, y, 50, 50);
-        switch (direct) {
-            case LEFT:
-                x -= SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-            default:
-                break;
-        }
+        myTank.paint(g);
+
 //        x += 10;
 //        y += 10;
     }
@@ -119,16 +104,16 @@ public class TankFrame extends Frame {
 
         private void setMainTankDir() {
             if (bL) {
-                direct = Direct.LEFT;
+                myTank.setDirect(Direct.LEFT);
             }
             if (bU) {
-                direct = Direct.UP;
+                myTank.setDirect(Direct.UP);
             }
             if (bR) {
-                direct = Direct.RIGHT;
+                myTank.setDirect(Direct.RIGHT);
             }
             if (bD) {
-                direct = Direct.DOWN;
+                myTank.setDirect(Direct.DOWN);
             }
 
         }

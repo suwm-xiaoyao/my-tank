@@ -1,5 +1,7 @@
 package com.suwm.tank;
 
+import java.awt.*;
+
 public class Tank {
 
     public static final int SPEED = 2;
@@ -10,7 +12,7 @@ public class Tank {
 
     private boolean moving = false;
 
-    public Tank(int x,int y,Direct direct){
+    public Tank(int x, int y, Direct direct) {
         this.x = x;
         this.y = y;
         this.direct = direct;
@@ -46,5 +48,25 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public void paint(Graphics g) {
+        g.fillRect(x, y, 50, 50);
+        switch (direct) {
+            case LEFT:
+                x -= SPEED;
+                break;
+            case UP:
+                y -= SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+            default:
+                break;
+        }
     }
 }
