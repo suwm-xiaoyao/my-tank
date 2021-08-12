@@ -15,7 +15,7 @@ public class TankFrame extends Frame {
 
     Direct direct = Direct.DOWN;
 
-    Tank myTank = new Tank(x,y,direct);
+    Tank myTank = new Tank(x, y, direct);
 
     public TankFrame() {
         setTitle("坦克大战");
@@ -103,19 +103,24 @@ public class TankFrame extends Frame {
 
 
         private void setMainTankDir() {
-            if (bL) {
-                myTank.setDirect(Direct.LEFT);
-            }
-            if (bU) {
-                myTank.setDirect(Direct.UP);
-            }
-            if (bR) {
-                myTank.setDirect(Direct.RIGHT);
-            }
-            if (bD) {
-                myTank.setDirect(Direct.DOWN);
-            }
+            if (!bL && !bU && !bR && !bD) {
+                myTank.setMoving(false);
+            } else {
+                myTank.setMoving(true);
 
+                if (bL) {
+                    myTank.setDirect(Direct.LEFT);
+                }
+                if (bU) {
+                    myTank.setDirect(Direct.UP);
+                }
+                if (bR) {
+                    myTank.setDirect(Direct.RIGHT);
+                }
+                if (bD) {
+                    myTank.setDirect(Direct.DOWN);
+                }
+            }
         }
     }
 }

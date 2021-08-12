@@ -52,6 +52,15 @@ public class Tank {
 
     public void paint(Graphics g) {
         g.fillRect(x, y, 50, 50);
+
+        move();
+    }
+
+    private void move() {
+        if (!moving) {
+            return;
+        }
+
         switch (direct) {
             case LEFT:
                 x -= SPEED;
