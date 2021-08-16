@@ -1,6 +1,7 @@
 package com.suwm.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
 
@@ -10,13 +11,15 @@ public class Tank {
 
     private Direct direct = Direct.DOWN;
 
-    private boolean moving = false;
+    private boolean moving = true;
 
     private Group group;
 
     private boolean living = true;
 
     private TankFrame tankFrame;
+
+    private Random random = new Random();
 
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
 
@@ -80,7 +83,20 @@ public class Tank {
                 break;
         }
 
+        // 自动开火
+        if (this.group==Group.BAD&& random.nextInt(100)>95){
+            this.fire();
+        }
+        // 自动转向
+        if (this.group==Group.BAD&& random.nextInt(100)>95){
+            randomDirect();
+        }
+
         boundsCheck();
+    }
+
+    private void randomDirect() {
+        this.direct = Direct.values()[random.nextInt(4)];
     }
 
     private void boundsCheck() {
