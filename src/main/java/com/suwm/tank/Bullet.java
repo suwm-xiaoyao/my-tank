@@ -36,6 +36,7 @@ public class Bullet {
         if (rectangle1.intersects(rectangle2)) {
             tank.die();
             this.die();
+            tankFrame.explodeList.add(new Explode(x, y, tankFrame));
         }
     }
 
@@ -89,7 +90,7 @@ public class Bullet {
                 break;
         }
 
-        if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
 
     }
 
