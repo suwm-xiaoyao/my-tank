@@ -9,8 +9,8 @@ public class Bullet {
 
     private Direct direct;
 
-    private static final int WIDTH = 30;
-    private static final int HEIGHT = 30;
+    public static final int WIDTH = ResourceMgr.bulletD.getWidth();;
+    public static final int HEIGHT = ResourceMgr.bulletD.getHeight();;
 
     public Bullet(int x, int y, Direct direct) {
         this.x = x;
@@ -19,10 +19,25 @@ public class Bullet {
     }
 
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.red);
-        g.fillOval(x, y, WIDTH, HEIGHT);
-        g.setColor(color);
+//        Color color = g.getColor();
+//        g.setColor(Color.red);
+//        g.fillOval(x, y, WIDTH, HEIGHT);
+//        g.setColor(color);
+
+        switch(direct) {
+            case LEFT:
+                g.drawImage(ResourceMgr.bulletL, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.bulletU, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.bulletR, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.bulletD, x, y, null);
+                break;
+        }
 
         move();
     }

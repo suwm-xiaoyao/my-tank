@@ -14,6 +14,10 @@ public class Tank {
 
     private TankFrame tankFrame;
 
+    public static int WIDTH = ResourceMgr.goodTankU.getWidth();
+
+    public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
+
     public Tank(int x, int y, Direct direct, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
@@ -54,10 +58,26 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.yellow);
-        g.fillRect(x, y, 50, 50);
-        g.setColor(color);
+//        Color color = g.getColor();
+//        g.setColor(Color.yellow);
+//        g.fillRect(x, y, 50, 50);
+//        g.setColor(color);
+
+        switch (direct) {
+            case LEFT:
+                g.drawImage(ResourceMgr.goodTankL, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.goodTankU, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.goodTankR, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.goodTankD, x, y, null);
+                break;
+        }
+
         move();
     }
 
@@ -85,8 +105,9 @@ public class Tank {
     }
 
     public void fire() {
-//        tankFrame.bullet = new Bullet();
-        tankFrame.bulletList.add(new Bullet(this.x + 10, this.y + 10, this.direct));
-
+        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
+        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        Bullet bullet = new Bullet(bX, bY, direct);
+        tankFrame.bulletList.add(bullet);
     }
 }
