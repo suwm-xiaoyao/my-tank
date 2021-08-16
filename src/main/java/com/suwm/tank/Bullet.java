@@ -9,22 +9,51 @@ public class Bullet {
 
     private Direct direct;
 
-    public static final int WIDTH = ResourceMgr.bulletD.getWidth();;
-    public static final int HEIGHT = ResourceMgr.bulletD.getHeight();;
+    private Group group;
 
-    public Bullet(int x, int y, Direct direct) {
+    private boolean living = true;
+
+    public static final int WIDTH = ResourceMgr.bulletD.getWidth();
+
+    public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
+
+    private TankFrame tankFrame;
+
+    public Bullet(int x, int y, Direct direct, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.direct = direct;
+        this.group = group;
+        this.tankFrame = tankFrame;
+    }
+
+    public void collideWith(Tank tank) {
+        if (this.group == tank.getGroup()) {
+            return;
+        }
+        Rectangle rectangle1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
+        Rectangle rectangle2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
+        if (rectangle1.intersects(rectangle2)) {
+            tank.die();
+            this.die();
+        }
+    }
+
+    private void die() {
+        this.living = false;
     }
 
     public void paint(Graphics g) {
+        if (!living) {
+            tankFrame.bulletList.remove(this);
+        }
+
 //        Color color = g.getColor();
 //        g.setColor(Color.red);
 //        g.fillOval(x, y, WIDTH, HEIGHT);
 //        g.setColor(color);
 
-        switch(direct) {
+        switch (direct) {
             case LEFT:
                 g.drawImage(ResourceMgr.bulletL, x, y, null);
                 break;
@@ -59,5 +88,40 @@ public class Bullet {
             default:
                 break;
         }
+
+        if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
+
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public boolean isLiving() {
+        return living;
+    }
+
+    public void setLiving(boolean living) {
+        this.living = living;
     }
 }

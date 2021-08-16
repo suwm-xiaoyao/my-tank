@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class TankFrame extends Frame {
@@ -15,11 +16,15 @@ public class TankFrame extends Frame {
 
     Direct direct = Direct.DOWN;
 
-    Tank myTank = new Tank(x, y, direct, this);
+    Tank myTank = new Tank(x, y, direct, Group.GOOD, this);
 
-    Bullet bullet = new Bullet(myTank.getX() / 2, myTank.getY() / 2, myTank.getDirect());
+    Bullet bullet = new Bullet(myTank.getX() / 2, myTank.getY() / 2, myTank.getDirect(), Group.GOOD, this);
 
     List<Bullet> bulletList = new ArrayList<>();
+
+    List<Tank> tankList = new ArrayList<>();
+
+    List<Explode> explodeList = new ArrayList<>();
 
     static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
@@ -64,6 +69,18 @@ public class TankFrame extends Frame {
         myTank.paint(g);
         for (int i = 0; i < bulletList.size(); i++) {
             bulletList.get(i).paint(g);
+        }
+        for (int i = 0; i < tankList.size(); i++) {
+            tankList.get(i).paint(g);
+        }
+
+        for (int i = 0; i < explodeList.size(); i++) {
+            explodeList.get(i).paint(g);
+        }
+
+        for (int i = 0; i < bulletList.size(); i++) {
+            for (Tank t : tankList)
+                bulletList.get(i).collideWith(t);
         }
 
 //        x += 10;

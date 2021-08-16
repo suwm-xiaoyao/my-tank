@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class ResourceMgr {
     public static BufferedImage goodTankL, goodTankU, goodTankR, goodTankD;
-    public static BufferedImage badTankL, badTankU, badTankR, badTankRbadTankR;
+    public static BufferedImage badTankL, badTankU, badTankR, badTankD;
     public static BufferedImage bulletL, bulletU, bulletR, bulletD;
     public static BufferedImage[] explodes = new BufferedImage[16];
 
@@ -23,7 +23,7 @@ public class ResourceMgr {
             badTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
             badTankL = ImageUtil.rotateImage(goodTankU, -90);
             badTankR = ImageUtil.rotateImage(goodTankU, 90);
-            badTankR = ImageUtil.rotateImage(goodTankU, 180);
+            badTankD = ImageUtil.rotateImage(goodTankU, 180);
 
             bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
             bulletL = ImageUtil.rotateImage(bulletU, -90);
