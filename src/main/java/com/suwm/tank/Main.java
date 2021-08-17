@@ -16,7 +16,9 @@ public class Main {
 //        });
 
         TankFrame tank = new TankFrame();
-        for (int i = 0; i < 5; i++) {
+
+        int initTankCount = Integer.parseInt(String.valueOf(PropertyMgr.get("initTankCount")));
+        for (int i = 0; i < initTankCount; i++) {
             tank.tankList.add(new Tank(50 + i * 200, 600, Direct.UP, Group.BAD, tank));
         }
 
