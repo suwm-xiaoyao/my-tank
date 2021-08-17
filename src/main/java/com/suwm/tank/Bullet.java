@@ -19,21 +19,28 @@ public class Bullet {
 
     private TankFrame tankFrame;
 
+    Rectangle rectangle = new Rectangle();
+
     public Bullet(int x, int y, Direct direct, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.direct = direct;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
     public void collideWith(Tank tank) {
         if (this.group == tank.getGroup()) {
             return;
         }
-        Rectangle rectangle1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-        Rectangle rectangle2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
-        if (rectangle1.intersects(rectangle2)) {
+//        Rectangle rectangle1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
+//        Rectangle rectangle2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
+        if (rectangle.intersects(tank.rectangle)) {
             tank.die();
             this.die();
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
@@ -92,7 +99,12 @@ public class Bullet {
                 break;
         }
 
-        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
+            living = false;
+        }
 
     }
 

@@ -25,12 +25,19 @@ public class Tank {
 
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
 
+    Rectangle rectangle = new Rectangle();
+
     public Tank(int x, int y, Direct direct, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.direct = direct;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -93,6 +100,9 @@ public class Tank {
         }
 
         boundsCheck();
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
     }
 
     private void randomDirect() {
@@ -100,6 +110,8 @@ public class Tank {
     }
 
     private void boundsCheck() {
+        if (this.x < 2) x = 2;
+        if (this.y < 28) y = 28;
         if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
         if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
     }
